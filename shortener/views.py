@@ -6,26 +6,24 @@ from .models import ShortenedURL
 
 
 def index(request: HttpRequest) -> HttpResponse:
-    all_urls = ShortenedURL.objects.all()
-
     if request.method == "POST":
         original_url = request.POST.get("original_url")
         alias = request.POST.get("alias", "").strip()
 
         if not original_url:
             messages.error(request, "Please provide a valid URL.")
-            return render(request, "index.html", {"all_urls": all_urls})
+            return redirect("url_shortener:index")
 
         if not alias:
             messages.error(request, "Please provide a custom alias.")
-            return render(request, "index.html", {"all_urls": all_urls})
+            return redirect("url_shortener:index")
 
         if not alias.replace("_", "").replace("-", "").isalnum():
             messages.error(
                 request,
                 "Alias can only contain letters, numbers, hyphens, and underscores.",
             )
-            return render(request, "index.html", {"all_urls": all_urls})
+            return redirect("url_shortener:index")
 
         if not original_url.startswith(("http://", "https://")):
             original_url = "https://" + original_url
@@ -46,11 +44,11 @@ def index(request: HttpRequest) -> HttpResponse:
 
         return redirect("url_shortener:index")
 
+    all_urls = ShortenedURL.objects.all()
     return render(request, "index.html", {"all_urls": all_urls})
 
 
-def redirect_to_original(request, alias):
-    """Redirect to original URL and increment click count"""
+def redirect_to_original(_: HttpRequest, alias: str) -> HttpResponse:
     url_obj = get_object_or_404(ShortenedURL, alias=alias)
 
     ShortenedURL.objects.filter(pk=url_obj.pk).update(

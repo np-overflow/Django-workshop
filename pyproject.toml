@@ -8,3 +8,6 @@ dependencies = [
     "django>=5.2.7",
     "ruff>=0.14.0",
 ]
+
+[tool.ruff]
+exclude = ["migrations/*.py"]
