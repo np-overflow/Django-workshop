@@ -28,32 +28,28 @@
       <button type="submit">Shorten URL</button>
     </form>
 
-    {% if messages %}
-      {% for message in messages %}
-        <p><strong>{{ message }}</strong></p>
-      {% endfor %}
-    {% endif %}
+    <!-- (BONUS) Create a new message below for EACH message using DTL -->
+    <p><strong>{{ message }}</strong></p>
 
     <h2>All URLs generated</h2>
-    <table border="1">
+    <table>
       <tr>
         <th>Short URL</th>
         <th>Original URL</th>
         <th>Clicks</th>
         <th>Created</th>
       </tr>
-      {% for url in all_urls %}
+      <!-- This is one table row element. Create a row below for EACH URLs using DTL -->
       <tr style="padding:5px">
-        <td>{{ request.build_absolute_uri }}{{ url.alias }}</td>
+        <td>URL alias</td> <!-- Inject the url alias here -->
         <td>
           <a href="{{ url.original_url }}" target="_blank"
-            >{{ url.original_url }}</a
-          >
+            >Original URL</a 
+          > <!-- Inject the original URL here -->
         </td>
-        <td>{{ url.click_count }}</td>
-        <td>{{ url.created_at|date:"M d, Y H:i" }}</td>
+        <td>0</td> <!-- Inject the click count here -->
+        <td>2025/1/1</td> <!-- Inject the created date here -->
       </tr>
-      {% endfor %}
     </table>
   </body>
 </html>
