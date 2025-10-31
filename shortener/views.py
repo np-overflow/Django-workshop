@@ -12,18 +12,18 @@ def index(request: HttpRequest) -> HttpResponse:
 
         if not original_url:
             messages.error(request, "Please provide a valid URL.")
-            return redirect("url_shortener:index")
+            return redirect("index")
 
         if not alias:
             messages.error(request, "Please provide a custom alias.")
-            return redirect("url_shortener:index")
+            return redirect("index")
 
         if not alias.replace("_", "").replace("-", "").isalnum():
             messages.error(
                 request,
                 "Alias can only contain letters, numbers, hyphens, and underscores.",
             )
-            return redirect("url_shortener:index")
+            return redirect("index")
 
         if not original_url.startswith(("http://", "https://")):
             original_url = "https://" + original_url
@@ -42,7 +42,7 @@ def index(request: HttpRequest) -> HttpResponse:
         except Exception:
             messages.error(request, "An error occurred while creating the short URL.")
 
-        return redirect("url_shortener:index")
+        return redirect("index")
 
     all_urls = ShortenedURL.objects.all()
     return render(request, "index.html", {"all_urls": all_urls})
