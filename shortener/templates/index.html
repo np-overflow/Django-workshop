@@ -2,10 +2,10 @@
 TASKS:
 
 1. Create a <tr> element below for EACH URL using DTL
-2. Inject the URL alias
-3. Inject the original URL
-4. Inject the click count
-5. Inject the created date
+2. Inject the URL alias (var name: alias)
+3. Inject the original URL (var name: original_url)
+4. Inject the click count (var name: click_count)
+5. Inject the created date (var name: created_at)
 
 (BONUS) 6. Create a new message for EACH message using DTL
 -->
@@ -53,13 +53,13 @@ TASKS:
       </tr>
       <!-- This is one table row element. Using DTL, create a <tr> element below for EACH URL -->
       <tr style="padding:5px">
-        <td>URL alias (TO REPLACE)</td> <!-- Inject the url alias here -->
+        <td>{{ url.alias }}</td> <!-- Inject the url alias (var name: alias) here -->
         <td>
           <a href="{{ url.original_url }}" target="_blank"
-            >Original URL (TO REPLACE)</a> <!-- Inject the original URL here -->
+            >Original URL (TO REPLACE)</a> <!-- Inject the original URL (var name: original_url) here -->
         </td>
-        <td>0 (TO REPLACE)</td> <!-- Inject the click count here -->
-        <td>2025/1/1 (TO REPLACE)</td> <!-- Inject the created date here -->
+        <td>0 (TO REPLACE)</td> <!-- Inject the click count (var name: click_count) here -->
+        <td>2025/1/1 (TO REPLACE)</td> <!-- Inject the created date (var name: created_at) here -->
       </tr>
     </table>
   </body>
